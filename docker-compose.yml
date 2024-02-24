@@ -1,0 +1,22 @@
+redis: 
+ image: redis
+
+db:
+ image: postgres:15-alpine
+ ports:
+  - 5000:80
+vote:
+ image: vote-app
+ links:
+ - redis
+worker:
+ image: worker-app
+ links:
+ - db
+ - redis
+result: 
+ image: result-app
+ ports: 
+  - 5001:80
+ links:
+ - db
